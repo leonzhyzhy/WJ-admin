@@ -8,18 +8,17 @@
         <div class="logo-name">商业联盟管理系统</div>
       </div>
       <el-collapse accordion class="parentMenu">
-        <el-collapse-item>
+        <el-collapse-item  v-for="item in menus" :key="item.menuId">
           <template slot="title">
             <i class="header-icon el-icon-info"></i>
-            <span>用户管理</span>
+            <span>{{item.name}}</span>
           </template>
-          <div>角色管理</div>
-          <div>角色管理</div>
+          <div v-for="(subItem, index) in item.subMenus" :key="index" @click="routerClick">{{subItem.name}}</div>
         </el-collapse-item>
-        <el-collapse-item title="反馈 Feedback">
+        <!-- <el-collapse-item title="反馈 Feedback" >
           <template slot="title">
             <i class="header-icon el-icon-info"></i>
-            <span>系统管理</span>
+            <span>{{}}</span>
           </template>
           <div>系统管理</div>
           <div>
@@ -29,15 +28,34 @@
               </el-collapse-item>
             </el-collapse>
           </div>
-        </el-collapse-item>
+        </el-collapse-item> -->
       </el-collapse>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-
+  data () {
+    return {
+      menus: []
+    }
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  created () {
+    this.menus = this.user.menusList
+  },
+  methods: {
+    aaa () {
+      console.log(2122)
+    },
+    routerClick () {
+      this.$router.push('/roles')
+    }
+  }
 }
 </script>
 
@@ -92,6 +110,7 @@ export default {
   line-height: 60px;
   font-size: 12px;
   padding-bottom: 0;
+  cursor: pointer;
 }
 .siderBar /deep/ .el-collapse.subMenu .el-collapse-item__header {
   background-color:  #1f2d3d;;

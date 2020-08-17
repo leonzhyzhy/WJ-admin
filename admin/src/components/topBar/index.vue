@@ -28,7 +28,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -37,7 +37,14 @@
 
 <script>
 export default {
-
+  methods: {
+    logout () {
+      this.$store.dispatch('LogOut').then(res => {
+        sessionStorage.clear()
+        this.$router.push('/login')
+      })
+    }
+  }
 }
 </script>
 
@@ -47,6 +54,7 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 200px;
+  background-color: #fff;
   justify-content: space-between;
   white-space: nowrap;
   padding-right: 20px;
@@ -71,6 +79,9 @@ export default {
   .right {
     display: flex;
     align-items: center;
+    .el-dropdown-link {
+      cursor: pointer;
+    }
     .img {
       display: inline-flex;
       width: 50px;

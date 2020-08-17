@@ -1,13 +1,22 @@
 <template>
-  <div class="home">
-    首页
+  <div>
+    <topBar></topBar>
+    <siderBar></siderBar>
+    <div class="home">
+      首页
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import topBar from '../components/topBar/index'
+import siderBar from '../components/siderBar/index'
 export default {
-
+  components: {
+    topBar,
+    siderBar
+  }
 }
 </script>
 
